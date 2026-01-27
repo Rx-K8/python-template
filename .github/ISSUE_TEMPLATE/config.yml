@@ -1,0 +1,10 @@
+blank_issues_enabled: true
+
+# テンプレート使用時に以下のURLを自分のリポジトリに変更してください
+# When using this template, change the URL below to your repository
+contact_links:
+  - name: 質問・ヘルプ / Question / Help
+    url: https://github.com/{owner}/{repo}/discussions
+    about: |
+      質問やヘルプが必要な場合は、GitHub Discussions をご利用ください。
+      For questions or help, please use GitHub Discussions.
