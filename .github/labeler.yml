@@ -4,6 +4,8 @@ docs:
       - any-glob-to-any-file:
         - README.md
         - release-notes.md
+        - DEVELOPMENT.md
+        - ONBOARDING.md
         - docs/**
 
 internal:
@@ -17,3 +19,12 @@ internal:
         - .pre-commit-config.yaml
       - all-globs-to-all-files:
         - '!pyproject.toml'
+
+# テスト関連の変更
+tests:
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - tests/**
+        - conftest.py
+        - pytest.ini
