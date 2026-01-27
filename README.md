@@ -35,6 +35,32 @@ echo "3.12" > .python-version
 2. **Workflow permissions** で "**Read and write permissions**" を選択
 3. **Save** をクリック
 
-### 4. このREADME.mdを書き換え
+### 4. Smokeshow（カバレッジレポート公開）の設定
+
+カバレッジレポートをSmokeshowで公開するには:
+
+1. [smokeshow.helpmanual.io](https://smokeshow.helpmanual.io/) にアクセスしてアカウントを作成
+2. 認証キーを取得
+3. リポジトリの **Settings** > **Secrets and variables** > **Actions** で `SMOKESHOW_AUTH_KEY` シークレットを追加
+
+#### カバレッジバッジの追加
+
+README.mdの先頭に以下を追加（`{owner}` と `{repo}` を置き換え）:
+
+```markdown
+[![Test](https://github.com/{owner}/{repo}/workflows/Test/badge.svg)](https://github.com/{owner}/{repo}/actions?query=workflow%3ATest)
+[![Lint](https://github.com/{owner}/{repo}/workflows/Lint/badge.svg)](https://github.com/{owner}/{repo}/actions?query=workflow%3ALint)
+[![Coverage](https://coverage-badge.samuelcolvin.workers.dev/{owner}/{repo}.svg)](https://coverage-badge.samuelcolvin.workers.dev/redirect/{owner}/{repo})
+```
+
+### 5. GitHub Discussions の有効化
+
+Issue テンプレートで Discussions へのリンクを使用するため:
+
+1. **Settings** > **General** を開く
+2. **Features** セクションで **Discussions** にチェックを入れる
+3. `.github/ISSUE_TEMPLATE/config.yml` の `{owner}/{repo}` を自分のリポジトリに変更
+
+### 6. このREADME.mdを書き換え
 
 このファイルをプロジェクト固有の内容に書き換えてください。
