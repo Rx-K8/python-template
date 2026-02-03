@@ -144,9 +144,58 @@ git branch -M main
 git push -u origin main
 ```
 
-#### ステップ7: GitHub設定
+#### ステップ7: developブランチの作成とデフォルトブランチの変更
 
-##### 7-1. Discussionsを有効化
+```bash
+# developブランチを作成してプッシュ
+git checkout -b develop
+git push -u origin develop
+
+# デフォルトブランチをdevelopに変更
+gh api -X PATCH repos/username/my-project -f default_branch=develop
+```
+
+#### ステップ8: ブランチ保護の設定
+
+mainブランチとdevelopブランチが削除されないように保護します。
+
+##### GitHub CLI
+```bash
+# mainブランチの保護（削除禁止）
+gh api -X PUT repos/username/my-project/branches/main/protection \
+  --input - <<'EOF'
+{
+  "enforce_admins": false,
+  "required_pull_request_reviews": null,
+  "required_status_checks": null,
+  "restrictions": null,
+  "allow_deletions": false
+}
+EOF
+
+# developブランチの保護（削除禁止）
+gh api -X PUT repos/username/my-project/branches/develop/protection \
+  --input - <<'EOF'
+{
+  "enforce_admins": false,
+  "required_pull_request_reviews": null,
+  "required_status_checks": null,
+  "restrictions": null,
+  "allow_deletions": false
+}
+EOF
+```
+
+##### 手動
+1. リポジトリの **Settings** → **Branches**
+2. **Add branch protection rule** をクリック
+3. Branch name pattern に `main` を入力
+4. **Save changes** で保存
+5. 同様に `develop` についても設定
+
+#### ステップ9: GitHub設定
+
+##### 9-1. Discussionsを有効化
 
 **GitHub CLI**
 ```bash
@@ -157,7 +206,7 @@ gh api -X PATCH repos/username/my-project -f has_discussions=true
 1. リポジトリの **Settings** → **General**
 2. **Features** で **Discussions** にチェック
 
-##### 7-2. GitHub Actionsの権限設定
+##### 9-2. GitHub Actionsの権限設定
 
 **GitHub CLI**
 ```bash
@@ -174,7 +223,7 @@ EOF
 2. **Workflow permissions** で **Read and write permissions** を選択
 3. **Save**
 
-##### 7-3. ラベルを作成
+##### 9-3. ラベルを作成
 
 **GitHub CLI**
 ```bash
@@ -191,7 +240,7 @@ gh label edit "bug" --description "🐛 バグ修正"
 **手動**
 リポジトリの **Issues** → **Labels** から手動で作成
 
-#### ステップ8: README.mdとconfig.ymlを更新
+#### ステップ10: README.mdとconfig.ymlを更新
 
 ##### README.md
 テンプレートの内容を削除し、プロジェクト用の説明に書き換えます：

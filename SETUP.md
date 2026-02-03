@@ -98,7 +98,50 @@ git push -u origin main
 
 初回コミットを作成し、GitHubにプッシュします。
 
-### 6. GitHub Discussionsの有効化
+### 6. developブランチの作成とデフォルトブランチの変更
+
+```bash
+# developブランチを作成してプッシュ
+git checkout -b develop
+git push -u origin develop
+
+# デフォルトブランチをdevelopに変更
+gh api -X PATCH repos/username/sample-repo -f default_branch=develop
+```
+
+developブランチを作成し、GitHubのデフォルトブランチをdevelopに設定します。
+
+### 7. ブランチ保護の設定
+
+```bash
+# mainブランチの保護（削除禁止）
+gh api -X PUT repos/username/sample-repo/branches/main/protection \
+  --input - <<'EOF'
+{
+  "enforce_admins": false,
+  "required_pull_request_reviews": null,
+  "required_status_checks": null,
+  "restrictions": null,
+  "allow_deletions": false
+}
+EOF
+
+# developブランチの保護（削除禁止）
+gh api -X PUT repos/username/sample-repo/branches/develop/protection \
+  --input - <<'EOF'
+{
+  "enforce_admins": false,
+  "required_pull_request_reviews": null,
+  "required_status_checks": null,
+  "restrictions": null,
+  "allow_deletions": false
+}
+EOF
+```
+
+mainブランチとdevelopブランチが削除されないように保護ルールを設定します。
+
+### 8. GitHub Discussionsの有効化
 
 ```bash
 gh api -X PATCH repos/username/sample-repo -f has_discussions=true
@@ -106,7 +149,7 @@ gh api -X PATCH repos/username/sample-repo -f has_discussions=true
 
 GitHub DiscussionsをAPI経由で有効化します。
 
-### 7. GitHub Actionsの権限設定
+### 9. GitHub Actionsの権限設定
 
 ```bash
 gh api -X PUT repos/username/sample-repo/actions/permissions/workflow --input - <<'EOF'
@@ -119,7 +162,7 @@ EOF
 
 GitHub Actionsのワークフロー権限を"Read and write permissions"に設定します。
 
-### 8. GitHubラベルの作成
+### 10. GitHubラベルの作成
 
 以下のラベルを作成します：
 
@@ -145,7 +188,7 @@ gh label create "upgrade" --repo username/sample-repo --color "0e8a16" --descrip
 gh label edit "bug" --repo username/sample-repo --description "🐛 バグ修正"
 ```
 
-### 9. オプション設定（Smokeshow）
+### 11. オプション設定（Smokeshow）
 
 カバレッジレポートを公開する場合のみ実施：
 
@@ -182,6 +225,8 @@ Claude Codeが：
 - [ ] GitHub Discussionsが有効化されている
 - [ ] GitHub Actionsの権限が"write"に設定されている
 - [ ] GitHubラベルが8種類作成されている
+- [ ] デフォルトブランチがdevelopに設定されている
+- [ ] mainブランチとdevelopブランチに保護ルールが設定されている
 
 ## トラブルシューティング
 
