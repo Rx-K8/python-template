@@ -166,26 +166,28 @@ GitHub Actionsのワークフロー権限を"Read and write permissions"に設�
 
 以下のラベルを作成します：
 
-| ラベル | 絵文字 | 用途 | 色 |
-|--------|--------|------|------|
-| `feature` | ✨ | 新機能の追加 | `a2eeef` |
-| `bug` | 🐛 | バグ修正 | `d73a4a` |
-| `refactor` | ♻️ | リファクタリング | `fbca04` |
-| `docs` | 📝 | ドキュメントの変更 | `0075ca` |
-| `internal` | ⚙️ | 内部実装の変更 | `ededed` |
-| `breaking` | 💥 | 破壊的変更 | `d93f0b` |
-| `security` | 🔒 | セキュリティ修正 | `b60205` |
-| `upgrade` | ⬆️ | 依存関係のアップグレード | `0e8a16` |
+| ラベル | 用途 | 色 |
+|--------|------|------|
+| `feature` | 新機能の追加 | `a2eeef` |
+| `bug` | バグ修正 | `d73a4a` |
+| `refactor` | リファクタリング | `fbca04` |
+| `docs` | ドキュメントの変更 | `0075ca` |
+| `internal` | 内部実装の変更 | `ededed` |
+| `breaking` | 破壊的変更 | `d93f0b` |
+| `upgrade` | 依存関係のアップグレード | `0e8a16` |
+| `infra` | インフラ関連の変更 | `0e8a16` |
+| `chore` | 雑務・メンテナンス | `ededed` |
 
 ```bash
-gh label create "feature" --repo username/sample-repo --color "a2eeef" --description "✨ 新機能の追加" --force
-gh label create "refactor" --repo username/sample-repo --color "fbca04" --description "♻️ リファクタリング" --force
-gh label create "docs" --repo username/sample-repo --color "0075ca" --description "📝 ドキュメントの変更" --force
-gh label create "internal" --repo username/sample-repo --color "ededed" --description "⚙️ 内部実装の変更（.github、scriptsなど）" --force
-gh label create "breaking" --repo username/sample-repo --color "d93f0b" --description "💥 破壊的変更" --force
-gh label create "security" --repo username/sample-repo --color "b60205" --description "🔒 セキュリティ修正" --force
-gh label create "upgrade" --repo username/sample-repo --color "0e8a16" --description "⬆️ 依存関係のアップグレード" --force
-gh label edit "bug" --repo username/sample-repo --description "🐛 バグ修正"
+gh label create "feature" --repo username/sample-repo --color "a2eeef" --description "新機能の追加" --force
+gh label create "refactor" --repo username/sample-repo --color "fbca04" --description "リファクタリング" --force
+gh label create "docs" --repo username/sample-repo --color "0075ca" --description "ドキュメントの変更" --force
+gh label create "internal" --repo username/sample-repo --color "ededed" --description "内部実装の変更（.github、scriptsなど）" --force
+gh label create "breaking" --repo username/sample-repo --color "d93f0b" --description "破壊的変更" --force
+gh label create "upgrade" --repo username/sample-repo --color "0e8a16" --description "依存関係のアップグレード" --force
+gh label create "infra" --repo username/sample-repo --color "0e8a16" --description "インフラ関連の変更" --force
+gh label create "chore" --repo username/sample-repo --color "ededed" --description "雑務・メンテナンス" --force
+gh label edit "bug" --repo username/sample-repo --description "バグ修正"
 ```
 
 ### 11. オプション設定（Smokeshow）
@@ -224,7 +226,7 @@ Claude Codeが：
 - [ ] 初回コミットがプッシュされている
 - [ ] GitHub Discussionsが有効化されている
 - [ ] GitHub Actionsの権限が"write"に設定されている
-- [ ] GitHubラベルが8種類作成されている
+- [ ] GitHubラベルが9種類作成されている
 - [ ] デフォルトブランチがdevelopに設定されている
 - [ ] mainブランチとdevelopブランチに保護ルールが設定されている
 
