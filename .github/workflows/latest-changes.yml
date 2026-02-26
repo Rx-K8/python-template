@@ -18,10 +18,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: tiangolo/latest-changes@0.4.0
+      - uses: tiangolo/latest-changes@0.4.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           latest_changes_file: release-notes.md
           latest_changes_header: "## Latest Changes"
           end_regex: "^## "
           label_header_prefix: "### "
+          labels: >
+            [
+              {"label": "breaking", "header": "Breaking Changes"},
+              {"label": "feature", "header": "Features"},
+              {"label": "bug", "header": "Fixes"},
+              {"label": "refactor", "header": "Refactors"},
+              {"label": "upgrade", "header": "Upgrades"},
+              {"label": "docs", "header": "Docs"},
+              {"label": "infra", "header": "Infrastructure"},
+              {"label": "internal", "header": "Internal"},
+              {"label": "chore", "header": "Chore"}
+            ]
